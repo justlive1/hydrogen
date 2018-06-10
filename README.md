@@ -9,4 +9,7 @@ nwjs .
 
 ```
 
-debug  ⌘ + ⌥ + i
+debug
+
+- ⌘ + ⌥ + i
+- nw --remote-debugging-port=9222
