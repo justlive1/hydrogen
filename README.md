@@ -4,25 +4,14 @@
 
 ```
 
-nwjs .
-
-
-```
-
-debug
-
-- ⌘ + ⌥ + i
-- nw --remote-debugging-port=9222
-
-leave fullscreen mode with ESC key
+electron
 
 ```
-nw.App.registerGlobalHotKey(new nw.Shortcut({
-  key: "Escape",
-  active: function () {
-    // decide whether to leave fullscreen mode
-    // then ...
-    nw.Window.get().leaveFullscreen();
-  }
-}));
+
+```
+app.client.auditAccessibility().then(function (audit) {
+    if (audit.failed) {
+      console.error(audit.message)
+    }
+  });
 ```
