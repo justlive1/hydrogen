@@ -1,5 +1,16 @@
 {
   "name": "hydrogen",
   "version": "0.0.1",
-  "main": "main.js"
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "justlive1 <qq11419041@163.com>",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^2.0.3"
+  }
 }
