@@ -4,7 +4,7 @@
 
 <script>
 
-  import EventBus from 'vertx3-eventbus-client'
+  import EventBus from 'vertx3-eventbus-client';
 
   const options = {
     vertxbus_ping_interval: 5000,
@@ -15,27 +15,56 @@
     vertxbus_randomization_factor: 0.5
   };
 
-  const eb = new EventBus('http://localhost:8090/eventbus', options);
-  window.eb = eb
-  eb.enableReconnect(true);
 
-  eb.onopen = function () {
+  function ebs(data) {
+    if (window.eb != null && window.eb.close) {
+      window.eb.close()
+    }
 
-    eb.registerHandler('im.server', function (error, message) {
-      console.log('received a message: ' + JSON.stringify(message));
-    });
+    const eb = new EventBus('http://localhost:8080/eventbus?_token=' + data, options);
 
-    // send a message
-    eb.send('im.test', {name: 'tim', age: 587});
+    window.eb = eb
 
-  };
+    eb.enableReconnect(true);
 
-  eb.onerror = function (err) {
-    console.log(err)
+    eb.onopen = function () {
+
+      eb.registerHandler('im.server', function (error, message) {
+        console.log('received a message: ' + JSON.stringify(message));
+      });
+
+      // send a message
+      eb.send('im.client', {name: 'tim', age: 587});
+
+    };
+
+    eb.onerror = function (err) {
+      console.log(err)
+    }
+
+    eb.onclose = function (err) {
+      console.log(err)
+    }
   }
 
   export default {
-    name: "login"
+    name: "login",
+    data() {
+      return {
+        username: 'user',
+        password: '123456'
+      }
+    },
+    created: function () {
+      this.login()
+    },
+    methods: {
+      login: function () {
+        this.$http.post("http://localhost:8080/login",
+            {username: this.username, password: this.password}).then()
+      }
+    }
+
   }
 </script>
 

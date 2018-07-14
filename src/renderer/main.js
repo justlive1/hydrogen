@@ -8,7 +8,10 @@ import store from './store'
 if (!process.env.IS_WEB) {
   Vue.use(require('vue-electron'))
 }
+
+axios.defaults.withCredentials = true
 Vue.http = Vue.prototype.$http = axios
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
